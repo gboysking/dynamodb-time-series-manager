@@ -1,6 +1,6 @@
 # Time Series Statistics Manager
 
-A simple and efficient library for managing time series statistics using AWS DynamoDB.
+A simple and efficient library for managing time series statistics using AWS DynamoDB. It is based on the implementation described in [this blog post](https://tobelinuxer.tistory.com/67).
 
 ## Table of Contents
 
@@ -30,15 +30,15 @@ First, import the _TimeSeriesStatisticsManager_ class and create a new instance 
 ```typescript
 import { TimeSeriesStatisticsManager } from 'time-series-statistics-manager';
 
-Create a new instance of the TimeSeriesStatisticsManager:
+// Create a new instance of the TimeSeriesStatisticsManager:
 
 const manager = new TimeSeriesStatisticsManager({});
 
-//Add a statistic:
+// Add a statistic:
 
 await manager.addStatistic("example_topic", Date.now());
 
-//Get statistics:
+// Get statistics:
 
 const stats = await manager.getStatistics("example_topic", startTime, endTime);
 ```
