@@ -1,0 +1,38 @@
+{
+    "name": "dynamodb-time-series-manager",
+    "version": "1.0.0",
+    "description": "Managing Time Series Statistics with TimeSeriesStatisticsManager and AWS DynamoDB",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "keywords": [
+        "dynamodb",
+        "Time Series",
+        "Statistics",
+        "AWS",
+        "Data Management",
+        "JavaScript",
+        "Aggregation"
+    ],
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@aws-sdk/client-dynamodb": "^3.309.0",
+        "@aws-sdk/lib-dynamodb": "^3.309.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gboysking/sdynamodb-time-series-manager.git"
+    },
+    "bugs": {
+        "url": "https://github.com/gboysking/dynamodb-time-series-manager/issues",
+        "email": "gboyskingq@gmail.com"
+    },
+    "homepage": "https://tobelinuxer.tistory.com",
+    "author": "gboysking <gboyskingq@gmail.com>",
+    "license": "MIT",
+    "devDependencies": {
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.4"
+    }
+}
