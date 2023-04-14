@@ -1,6 +1,6 @@
 {
     "name": "dynamodb-time-series-manager",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Managing Time Series Statistics with TimeSeriesStatisticsManager and AWS DynamoDB",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",

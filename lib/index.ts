@@ -98,7 +98,13 @@ export class TimeSeriesStatisticsManager {
             } else if (this.state === 'FAIL') {
                 reject();
             } else {
-                this.onReadyPromises.push(resolve);
+                this.onReadyPromises.push((error) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve();
+                    }
+                });                
             }
         });
     }
