@@ -20,7 +20,8 @@ The TimeSeriesStatisticsManager is a TypeScript library designed to manage time 
 Install the library using npm:
 
 ```bash
-npm install time-series-statistics-manager
+npm install dynamodb-time-series-manager
+
 ```
 
 ## Usage
