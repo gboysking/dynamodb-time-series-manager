@@ -191,7 +191,7 @@ export class TimeSeriesStatisticsManager {
         return this.timePartitions.find((tp) => tp.name === period);
     }
 
-    public async addStatistic(topic: string, timestamp: number): Promise<void> {
+    public async addStatistic(topic: string, timestamp: number, amount?: number): Promise<void> {
         await this.onReady();
 
         for (const partition of this.timePartitions) {
@@ -208,7 +208,7 @@ export class TimeSeriesStatisticsManager {
                     "#count": "count"
                 },
                 ExpressionAttributeValues: {
-                    ":incr": 1
+                    ":incr": amount ? amount : 1
                 },
                 ReturnValues: "UPDATED_NEW"
             };
