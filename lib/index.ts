@@ -1,5 +1,6 @@
 import { DynamoDBDocument, QueryCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { CreateTableCommand, DescribeTableCommand, DescribeTableCommandInput, DynamoDBClient, TableStatus } from "@aws-sdk/client-dynamodb";
+import moment from 'moment';
 
 interface Statistic {
     topic: string;
@@ -191,24 +192,33 @@ export class TimeSeriesStatisticsManager {
         return this.timePartitions.find((tp) => tp.name === period);
     }
 
+    private getTimePartitionValue(timestamp: number, partition: TimePartition): string {
+        const date = moment(timestamp);
+        const formattedDate = date.utc().format(partition.format)
+        return formattedDate;
+    }
+
     public async addStatistic(topic: string, timestamp: number, amount?: number): Promise<void> {
         await this.onReady();
 
         for (const partition of this.timePartitions) {
-            const timePartitionValue = Math.floor(timestamp / partition.interval) * partition.interval;
+            const timePartitionValue = this.getTimePartitionValue(timestamp, partition);
+            const timePartition = new Date(timePartitionValue);
 
             const updateParams = {
                 TableName: this.table,
                 Key: {
                     topic_period: this.createTopicPeriod(topic, partition.name),
-                    time_partition: timePartitionValue
+                    time_partition: timePartition.getTime()
                 },
-                UpdateExpression: "ADD #count :incr",
+                UpdateExpression: "ADD #count :incr SET #timestamp = :time",
                 ExpressionAttributeNames: {
-                    "#count": "count"
+                    "#count": "count",
+                    "#timestamp": "time"
                 },
                 ExpressionAttributeValues: {
-                    ":incr": amount ? amount : 1
+                    ":incr": amount ? amount : 1,
+                    ":time": timePartition.toISOString()
                 },
                 ReturnValues: "UPDATED_NEW"
             };
